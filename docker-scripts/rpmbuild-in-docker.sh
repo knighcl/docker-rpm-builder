@@ -5,9 +5,12 @@ SPEC=$(ls /src/*.spec | head -n 1)
 cp -t /docker-rpm-build-root/SOURCES -r /src/*
 [ -x /src/drb-pre ] && /src/drb-pre
 /docker-scripts/rpm-setup-deps.sh
-#rpmbuild -bb $SPEC || /bin/bash
-cd /docker-rpm-build-root/SOURCES
-make rpms
+if [ -e /src/Makefile ]; then
+	cd /docker-rpm-build-root/SOURCES
+	make rpms
+else
+	rpmbuild -bb $SPEC || /bin/bash
+fi
 [ -x /src/drb-post ] && /src/drb-post
 #cp -fr /docker-rpm-build-root/RPMS /src
 cp -fr dist/rpms/*.rpm /src
