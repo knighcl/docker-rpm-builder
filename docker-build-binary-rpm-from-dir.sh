@@ -10,7 +10,6 @@ shift 1
 SRCDIR=$(readlink -f ${SRCDIR})
 
 # substitute template if it's there
-cp /${SRCDIR}/freeipa.spec.in /${SRCDIR}/freeipa-builddeps.spec
 SPEC=$(ls /${SRCDIR}/*.spec | head -n 1)
 # find .spec.in and copy to .spec
 if [ -z "$SPEC" ] ; then
